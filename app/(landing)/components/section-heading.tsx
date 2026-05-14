@@ -9,8 +9,8 @@ export const SectionHeading = ({
   title: ReactNode;
   action?: boolean;
 }) => (
-  <div className="mb-10 flex items-center justify-between gap-4">
-    <h2 className="text-3xl font-medium leading-10 text-[#18191c] lg:text-[40px] lg:leading-[48px]">
+  <div className="mb-7 flex items-center justify-between gap-4 md:mb-10">
+    <h2 className="text-2xl font-medium leading-8 text-[#18191c] md:text-3xl md:leading-10 lg:text-[40px] lg:leading-[48px]">
       {title}
     </h2>
     {action ? (

@@ -9,7 +9,7 @@ export const Footer = () => {
   return (
     <footer className="bg-[#18191c] text-white">
       <Container>
-        <div className="grid gap-10 py-16 lg:grid-cols-[1.4fr_repeat(4,1fr)] lg:py-[100px]">
+        <div className="grid gap-8 py-12 md:gap-10 md:py-16 lg:grid-cols-[1.4fr_repeat(4,1fr)] lg:py-[100px]">
           <div>
             <CareerLinkLogo dark />
             <p className="mt-6 text-lg leading-7">

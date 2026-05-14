@@ -5,13 +5,13 @@ import { companies } from "./landing-data";
 import { SectionHeading } from "./section-heading";
 
 export const TopCompanies = () => (
-  <section className="lg:pb-20">
+  <section className="pb-12 md:pb-16 lg:pb-20">
     <Container>
       <SectionHeading title="Top companies" />
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-4">
         {companies.map(([name, location, logo, logoBg]) => (
           <div
-            className="group cursor-pointer rounded-xl border border-[#edeff5] bg-white p-6 transition-all hover:shadow-[0_12px_48px_rgba(0,44,109,0.1)]"
+            className="group cursor-pointer rounded-xl border border-[#edeff5] bg-white p-5 transition-all hover:shadow-[0_12px_48px_rgba(0,44,109,0.1)] md:p-6"
             key={name}
           >
             <div className="flex items-start gap-4">
@@ -36,7 +36,7 @@ export const TopCompanies = () => (
               </div>
             </div>
             <button
-              className="mt-8 w-full cursor-pointer rounded-[3px] bg-[#e7f0fa] px-6 py-3 font-semibold text-[#0a65cc] transition-colors hover:bg-[#0a65cc] hover:text-white group-hover:bg-[#0a65cc] group-hover:text-white"
+              className="mt-6 w-full cursor-pointer rounded-[3px] bg-[#e7f0fa] px-6 py-3 font-semibold text-[#0a65cc] transition-colors hover:bg-[#0a65cc] hover:text-white group-hover:bg-[#0a65cc] group-hover:text-white md:mt-8"
               type="button"
             >
               Open Position

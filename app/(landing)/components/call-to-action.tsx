@@ -2,9 +2,9 @@ import { Container } from "./container";
 import { ArrowRightIcon } from "./home-icons";
 
 export const CallToAction = () => (
-  <section className="py-20">
+  <section className="py-12 md:py-16 lg:py-20">
     <Container>
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 md:gap-6 lg:grid-cols-2">
         <CtaCard
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras cursus a dolor convallis efficitur."
           title="Become a Candidate"
@@ -29,11 +29,13 @@ const CtaCard = ({
   title: string;
 }) => (
   <div
-    className={`rounded-xl p-8 lg:p-[50px] ${
+    className={`rounded-xl p-6 md:p-8 lg:p-[50px] ${
       dark ? "bg-[#0851a3] text-white" : "bg-[#e4e5e8] text-[#191f33]"
     }`}
   >
-    <h2 className="text-3xl font-medium leading-10">{title}</h2>
+    <h2 className="text-2xl font-medium leading-8 md:text-3xl md:leading-10">
+      {title}
+    </h2>
     <p
       className={`mt-4 max-w-[312px] text-sm leading-5 ${
         dark ? "text-white/80" : "text-[#636a80]"

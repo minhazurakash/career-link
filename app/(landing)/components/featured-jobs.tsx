@@ -6,18 +6,18 @@ import { jobs } from "./landing-data";
 import { SectionHeading } from "./section-heading";
 
 export const FeaturedJobs = () => (
-  <section className="py-20 lg:py-[100px]">
+  <section className="py-12 md:py-16 lg:py-[100px]">
     <Container>
       <SectionHeading action title="Featured job" />
-      <div className="space-y-6">
+      <div className="space-y-4 md:space-y-6">
         {jobs.map(([title, type, location, salary, logo, logoBg]) => (
           <div
-            className="group flex cursor-pointer flex-col gap-5 rounded-xl border border-[#edeff5] bg-white p-6 transition-all hover:shadow-[0_12px_48px_rgba(0,44,109,0.1)] md:flex-row md:items-center md:justify-between lg:p-8"
+            className="group flex cursor-pointer flex-col gap-4 rounded-xl border border-[#edeff5] bg-white p-5 transition-all hover:shadow-[0_12px_48px_rgba(0,44,109,0.1)] md:flex-row md:items-center md:justify-between md:gap-5 md:p-6 lg:p-8"
             key={title}
           >
-            <div className="flex gap-5">
+            <div className="flex gap-4 md:gap-5">
               <span
-                className="flex size-[68px] shrink-0 items-center justify-center rounded-md"
+                className="flex size-16 shrink-0 items-center justify-center rounded-md md:size-[68px]"
                 style={{ backgroundColor: logoBg }}
               >
                 <Image
@@ -31,7 +31,7 @@ export const FeaturedJobs = () => (
               </span>
               <div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="text-xl font-medium leading-8 text-[#191f33]">
+                  <h3 className="text-lg font-medium leading-7 text-[#191f33] md:text-xl md:leading-8">
                     {title}
                   </h3>
                   <span className="rounded-full bg-[#e8f1ff] px-3 py-1 text-sm text-[#0a65cc]">

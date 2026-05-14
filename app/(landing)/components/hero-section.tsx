@@ -8,20 +8,20 @@ import { stats } from "./landing-data";
 
 export const HeroSection = () => {
   return (
-    <section className="bg-[#f1f2f4]/60 py-16 lg:py-24">
+    <section className="bg-[#f1f2f4]/60 py-12 md:py-16 lg:py-24">
       <Container>
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
           <div>
             <h1 className="max-w-[652px] text-4xl font-medium leading-tight text-[#18191c] md:text-5xl xl:text-[56px] xl:leading-[64px]">
               Find a job that suits your interest & skills.
             </h1>
-            <p className="mt-6 max-w-[536px] text-lg leading-7 text-[#5e6670]">
+            <p className="mt-4 max-w-[536px] text-base leading-6 text-[#5e6670] md:mt-6 md:text-lg md:leading-7">
               Aliquam vitae turpis in diam convallis finibus in at risus.
               Nullam in scelerisque leo, eget sollicitudin velit bestibulum.
             </p>
 
             <form
-              className="mt-8 max-w-[780px] rounded-lg border border-[#e4e5e8] bg-white p-3 shadow-[0_12px_40px_rgba(0,44,109,0.04)]"
+              className="mt-6 max-w-[780px] rounded-lg border border-[#e4e5e8] bg-white p-3 shadow-[0_12px_40px_rgba(0,44,109,0.04)] md:mt-8"
               role="search"
             >
               <div className="grid gap-3 md:grid-cols-3">
@@ -47,7 +47,7 @@ export const HeroSection = () => {
               </div>
             </form>
 
-            <p className="mt-6 text-sm leading-5 text-[#9199a3]">
+            <p className="mt-4 text-sm leading-5 text-[#9199a3] md:mt-6">
               Suggestion:{" "}
               <span className="text-[#474c54]">
                 Designer, Programing,{" "}
@@ -62,17 +62,17 @@ export const HeroSection = () => {
           <HeroIllustration />
         </div>
 
-        <div className="mt-16 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 md:mt-12 lg:mt-16 xl:grid-cols-4">
           {stats.map(({ icon: Icon, label, value }) => (
             <div
-              className="flex items-center gap-5 rounded-lg bg-white p-5 shadow-sm"
+              className="flex items-center gap-4 rounded-lg bg-white p-4 shadow-sm md:gap-5 md:p-5"
               key={label}
             >
-              <span className="flex size-[72px] items-center justify-center rounded bg-[#e7f0fa] text-[#0a65cc]">
-                <Icon className="size-8" />
+              <span className="flex size-16 items-center justify-center rounded bg-[#e7f0fa] text-[#0a65cc] md:size-[72px]">
+                <Icon className="size-7 md:size-8" />
               </span>
               <span>
-                <strong className="block text-2xl font-medium leading-8">
+                <strong className="block text-xl font-medium leading-7 md:text-2xl md:leading-8">
                   {value}
                 </strong>
                 <span className="text-sm leading-5 text-[#767f8c]">
