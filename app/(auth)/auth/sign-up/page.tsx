@@ -1,9 +1,9 @@
+import { CareerLinkLogo } from "@/components/common/career-link-logo";
 import { SocialMediaLogin } from "@/components/common/social-media-login";
 import Link from "next/link";
 import { AccountTypeSelect } from "./components/account-type-select";
 import { HeroPanel } from "./components/hero-panel";
 import { ArrowRightIcon } from "./components/icons";
-import { LogoMark } from "./components/logo-mark";
 import { TermsCheckbox } from "./components/terms-checkbox";
 import { TextField } from "./components/text-field";
 
@@ -13,15 +13,7 @@ const SignUpPage = () => {
       <HeroPanel />
 
       <header className="absolute left-0 top-0 z-20 h-20 w-full lg:h-[100px]">
-        <Link
-          className="absolute left-5 top-1/2 flex -translate-y-1/2 cursor-pointer items-center gap-2 lg:left-12 xl:left-16 2xl:left-[120px] min-[1800px]:left-[300px]"
-          href="/"
-        >
-          <LogoMark />
-          <span className="text-2xl font-semibold leading-10 text-[#18191c]">
-            CareerLink
-          </span>
-        </Link>
+        <CareerLinkLogo className="absolute left-5 top-1/2 -translate-y-1/2 lg:left-12 xl:left-16 2xl:left-[120px] min-[1800px]:left-[300px]" />
       </header>
 
       <section className="relative z-10 mx-auto flex min-h-screen w-full max-w-[536px] flex-col justify-center gap-4 px-5 pb-6 pt-24 lg:mx-0 lg:ml-12 lg:w-[360px] lg:max-w-none lg:px-0 xl:ml-16 xl:w-[440px] 2xl:ml-[120px] 2xl:w-[536px] 2xl:gap-8 2xl:pb-10 2xl:pt-[120px] min-[1800px]:ml-[300px]">
