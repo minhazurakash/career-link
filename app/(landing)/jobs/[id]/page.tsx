@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { createClient } from "@supabase/supabase-js";
+import { createSupabaseClient } from "@/lib/supabase";
 import { TopNavigation } from "../../components/top-navigation";
 import { Footer } from "../../components/footer";
 import { Container } from "../../components/container";
@@ -15,10 +15,7 @@ interface PageProps {
 export default async function JobSinglePage({ params }: PageProps) {
   const { id } = await params;
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL || "",
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
-  );
+  const supabase = createSupabaseClient();
 
   const { data: job } = await supabase.from("jobs").select("*").eq("id", id).single();
 

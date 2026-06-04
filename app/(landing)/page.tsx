@@ -1,5 +1,5 @@
-import { createClient } from "@supabase/supabase-js";
 import { fetchJobCountsForCompanies, getJobCount } from "@/lib/company-jobs";
+import { createSupabaseClient } from "@/lib/supabase";
 import { CallToAction } from "./components/call-to-action";
 import { CategorySection } from "./components/category-section";
 import { FeaturedJobs } from "./components/featured-jobs";
@@ -22,10 +22,7 @@ export default async function Home({ searchParams }: PageProps) {
   const keyword = params.keyword || "";
   const location = params.location || "";
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
-
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+  const supabase = createSupabaseClient();
 
   // 1. Fetch count stats
   const { count: jobCount } = await supabase

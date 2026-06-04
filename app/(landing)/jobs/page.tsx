@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { createClient } from "@supabase/supabase-js";
+import { createSupabaseClient } from "@/lib/supabase";
 import { TopNavigation } from "../components/top-navigation";
 import { Footer } from "../components/footer";
 import { Container } from "../components/container";
@@ -23,10 +23,7 @@ export default async function JobsPage({ searchParams }: PageProps) {
   const location = params.location || "";
   const type = params.type || "";
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL || "",
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
-  );
+  const supabase = createSupabaseClient();
 
   let query = supabase.from("jobs").select("*");
 

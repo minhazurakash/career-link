@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { createClient } from "@supabase/supabase-js";
+import { createSupabaseClient } from "@/lib/supabase";
 import { fetchJobCountsForCompanies, getJobCount } from "@/lib/company-jobs";
 import { TopNavigation } from "../components/top-navigation";
 import { Footer } from "../components/footer";
@@ -20,10 +20,7 @@ export default async function CompaniesPage({ searchParams }: PageProps) {
   const keyword = params.keyword || "";
   const location = params.location || "";
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL || "",
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
-  );
+  const supabase = createSupabaseClient();
 
   let query = supabase.from("companies").select("*");
 
