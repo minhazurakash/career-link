@@ -3,7 +3,14 @@ import Link from "next/link";
 import { CareerLinkLogo } from "@/components/common/career-link-logo";
 
 import { Container } from "./container";
-import { footerGroups } from "./landing-data";
+import { footerGroups, footerLinkPaths } from "./landing-data";
+
+const getFooterHref = (groupTitle: string, link: string) => {
+  if (link === "Dashboard") {
+    return groupTitle === "Employers" ? "/employer" : "/candidate";
+  }
+  return footerLinkPaths[link] ?? "#";
+};
 
 export const Footer = () => {
   return (
@@ -27,7 +34,7 @@ export const Footer = () => {
                 {links.map((link) => (
                   <Link
                     className="cursor-pointer text-[#9199a3] hover:text-white"
-                    href="#"
+                    href={getFooterHref(title, link)}
                     key={link}
                   >
                     {link}

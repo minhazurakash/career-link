@@ -7,13 +7,15 @@ import { useAuth } from "@/context/auth-context";
 import { CareerLinkLogo } from "@/components/common/career-link-logo";
 import { Container } from "./container";
 import { PhoneIcon, SearchIcon } from "./home-icons";
+import { useDialog } from "@/components/dialog/dialog-provider";
 import { navLinks } from "./landing-data";
 
 export const TopNavigation = () => {
   const { user, profile, signOut } = useAuth();
+  const { alert } = useDialog();
   const router = useRouter();
 
-  const handlePostJobClick = () => {
+  const handlePostJobClick = async () => {
     if (!user) {
       router.push("/auth/login");
     } else if (profile?.role === "employer") {
@@ -21,7 +23,12 @@ export const TopNavigation = () => {
     } else if (profile?.role === "admin") {
       router.push("/admin");
     } else {
-      alert("Only Employers can post job listings. Please log out and sign up as an Employer.");
+      await alert({
+        title: "Employer account required",
+        message:
+          "Only employers can post job listings. Please log out and sign up as an employer.",
+        variant: "warning",
+      });
     }
   };
 
@@ -40,14 +47,14 @@ export const TopNavigation = () => {
               {navLinks.map((link) => (
                 <Link
                   className={`cursor-pointer text-sm leading-5 ${
-                    link === "Home"
+                    link.href === "/"
                       ? "border-b-2 border-[#0a65cc] py-3.5 font-medium text-[#0a65cc]"
-                      : "text-[#5e6670]"
+                      : "text-[#5e6670] hover:text-[#0a65cc]"
                   }`}
-                  href={link === "Home" ? "/" : "#"}
-                  key={link}
+                  href={link.href}
+                  key={link.label}
                 >
-                  {link}
+                  {link.label}
                 </Link>
               ))}
             </nav>
@@ -82,7 +89,7 @@ export const TopNavigation = () => {
                 <CareerLinkLogo />
               </Link>
               <form
-                action="/"
+                action="/jobs"
                 method="GET"
                 className="hidden h-[50px] w-[420px] items-center gap-4 rounded-[5px] border border-[#e4e5e8] px-5 xl:flex"
                 role="search"

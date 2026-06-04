@@ -98,7 +98,7 @@ export default function CandidateDashboard() {
             </div>
             
             <Link
-              href="/"
+              href="/jobs"
               className="mt-6 flex w-full justify-center rounded bg-[#0a65cc] py-3 text-sm font-semibold text-white hover:bg-[#095bb8] transition-colors"
             >
               Browse & Search Jobs

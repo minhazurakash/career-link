@@ -6,7 +6,7 @@ import { SectionHeading } from "./section-heading";
 export const CategorySection = () => (
   <section className="border-b border-[#e4e5e8] py-12 md:py-16 lg:py-[100px]">
     <Container>
-      <SectionHeading action title="Popular category" />
+      <SectionHeading action actionHref="/jobs" title="Popular category" />
       <div className="grid gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4">
         {categories.map(([title, count]) => (
           <div

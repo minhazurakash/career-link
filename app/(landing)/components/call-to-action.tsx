@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Container } from "./container";
 import { ArrowRightIcon } from "./home-icons";
 
@@ -6,11 +8,13 @@ export const CallToAction = () => (
     <Container>
       <div className="grid gap-4 md:gap-6 lg:grid-cols-2">
         <CtaCard
+          href="/auth/sign-up"
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras cursus a dolor convallis efficitur."
           title="Become a Candidate"
         />
         <CtaCard
           dark
+          href="/auth/sign-up"
           text="Cras in massa pellentesque, mollis ligula non, luctus dui. Morbi sed efficitur dolor."
           title="Become a Employers"
         />
@@ -21,10 +25,12 @@ export const CallToAction = () => (
 
 const CtaCard = ({
   dark = false,
+  href,
   text,
   title,
 }: {
   dark?: boolean;
+  href: string;
   text: string;
   title: string;
 }) => (
@@ -43,12 +49,12 @@ const CtaCard = ({
     >
       {text}
     </p>
-    <button
-      className="mt-6 flex cursor-pointer items-center gap-3 rounded-[3px] bg-white px-6 py-3 font-semibold capitalize text-[#0a65cc]"
-      type="button"
+    <Link
+      className="mt-6 flex cursor-pointer items-center gap-3 rounded-[3px] bg-white px-6 py-3 font-semibold capitalize text-[#0a65cc] w-fit"
+      href={href}
     >
       Register now
       <ArrowRightIcon />
-    </button>
+    </Link>
   </div>
 );

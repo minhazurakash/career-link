@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { fetchJobCountsForCompanies, getJobCount } from "@/lib/company-jobs";
 import { CallToAction } from "./components/call-to-action";
 import { CategorySection } from "./components/category-section";
 import { FeaturedJobs } from "./components/featured-jobs";
@@ -42,6 +43,14 @@ export default async function Home({ searchParams }: PageProps) {
     .order("created_at", { ascending: false })
     .limit(8);
 
+  const jobCounts = await fetchJobCountsForCompanies(
+    supabase,
+    (companiesData || []).map((c: { id: string; name: string }) => ({
+      id: c.id,
+      name: c.name,
+    }))
+  );
+
   // 3. Fetch jobs with search filters
   let query = supabase.from("jobs").select("*");
 
@@ -75,6 +84,7 @@ export default async function Home({ searchParams }: PageProps) {
     location: c.location,
     logo_url: c.logo_url,
     logo_bg: c.logo_bg,
+    job_count: getJobCount(jobCounts, c.id),
   }));
 
   return (

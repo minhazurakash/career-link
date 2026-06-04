@@ -11,13 +11,24 @@ import {
 
 type LandingIcon = ComponentType<{ className?: string }>;
 
-export const navLinks = [
-  "Home",
-  "Find Job",
-  "Employers",
-  "Candidates",
-  "Customer Supports",
+export const navLinks: Array<{ label: string; href: string }> = [
+  { label: "Home", href: "/" },
+  { label: "Find Job", href: "/jobs" },
+  { label: "Employers", href: "/companies" },
+  { label: "Candidates", href: "/auth/sign-up" },
+  { label: "Customer Supports", href: "#" },
 ];
+
+export const footerLinkPaths: Record<string, string> = {
+  About: "/",
+  "Browse Jobs": "/jobs",
+  "Browse Employers": "/companies",
+  "Post a Job": "/auth/login",
+  Dashboard: "/candidate",
+  "Saved Jobs": "/candidate",
+  "Browse Candidates": "/companies",
+  Applications: "/employer",
+};
 
 export const stats: Array<{
   label: string;

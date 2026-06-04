@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/auth-context";
+import { DialogProvider } from "@/components/dialog/dialog-provider";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -57,7 +58,9 @@ export default function RootLayout({
       className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <DialogProvider>{children}</DialogProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -31,7 +31,7 @@ export const HeroSection = ({
             </p>
 
             <form
-              action="/"
+              action="/jobs"
               method="GET"
               className="mt-6 max-w-[780px] rounded-lg border border-[#e4e5e8] bg-white p-3 shadow-[0_12px_40px_rgba(0,44,109,0.04)] md:mt-8"
               role="search"
