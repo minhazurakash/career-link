@@ -1,3 +1,5 @@
+"use client";
+
 import { CareerLinkLogo } from "@/components/common/career-link-logo";
 import { SocialMediaLogin } from "@/components/common/social-media-login";
 import Link from "next/link";
@@ -5,8 +7,83 @@ import { HeroPanel } from "./components/hero-panel";
 import { ArrowRightIcon } from "./components/icons";
 import { RememberRow } from "./components/remember-row";
 import { TextField } from "./components/text-field";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/context/auth-context";
 
 const LoginPage = () => {
+  const router = useRouter();
+  const { profile, user, loading } = useAuth();
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // If user is already logged in, redirect them
+  useEffect(() => {
+    if (!loading && user && profile) {
+      if (profile.role === "admin") {
+        router.push("/admin");
+      } else if (profile.role === "employer") {
+        router.push("/employer");
+      } else {
+        router.push("/candidate");
+      }
+    }
+  }, [user, profile, loading, router]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setErrorMsg(null);
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    if (!email || !password) {
+      setErrorMsg("Please fill in all fields.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        setErrorMsg(error.message);
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (data.user) {
+        // Fetch profile to redirect immediately
+        const { data: profData } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", data.user.id)
+          .single();
+
+        if (profData) {
+          if (profData.role === "admin") {
+            router.push("/admin");
+          } else if (profData.role === "employer") {
+            router.push("/employer");
+          } else {
+            router.push("/candidate");
+          }
+        } else {
+          router.push("/candidate");
+        }
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || "An unexpected error occurred.");
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-white font-sans text-[#18191c]">
       <HeroPanel />
@@ -32,17 +109,23 @@ const LoginPage = () => {
           </p>
         </div>
 
-        <form className="flex flex-col gap-5">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          {errorMsg && (
+            <div className="rounded bg-red-50 p-3 text-sm text-red-600 border border-red-200">
+              {errorMsg}
+            </div>
+          )}
           <TextField label="Email address" name="email" type="email" />
           <TextField label="Password" name="password" type="password" />
           <RememberRow />
 
           <button
-            className="flex h-[56px] w-full cursor-pointer items-center justify-center gap-3 rounded bg-[#0a65cc] px-8 py-4 text-base font-semibold capitalize leading-6 text-white transition-colors hover:bg-[#095bb8]"
+            className="flex h-[56px] w-full cursor-pointer items-center justify-center gap-3 rounded bg-[#0a65cc] px-8 py-4 text-base font-semibold capitalize leading-6 text-white transition-colors hover:bg-[#095bb8] disabled:bg-[#0a65cc]/50 disabled:cursor-not-allowed"
             type="submit"
+            disabled={isSubmitting}
           >
-            Sign in
-            <ArrowRightIcon />
+            {isSubmitting ? "Signing in..." : "Sign in"}
+            {!isSubmitting && <ArrowRightIcon />}
           </button>
         </form>
 

@@ -1,13 +1,36 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/auth-context";
 import { CareerLinkLogo } from "@/components/common/career-link-logo";
-
 import { Container } from "./container";
 import { PhoneIcon, SearchIcon } from "./home-icons";
 import { navLinks } from "./landing-data";
 
 export const TopNavigation = () => {
+  const { user, profile, signOut } = useAuth();
+  const router = useRouter();
+
+  const handlePostJobClick = () => {
+    if (!user) {
+      router.push("/auth/login");
+    } else if (profile?.role === "employer") {
+      router.push("/employer");
+    } else if (profile?.role === "admin") {
+      router.push("/admin");
+    } else {
+      alert("Only Employers can post job listings. Please log out and sign up as an Employer.");
+    }
+  };
+
+  const getDashboardLink = () => {
+    if (profile?.role === "admin") return "/admin";
+    if (profile?.role === "employer") return "/employer";
+    return "/candidate";
+  };
+
   return (
     <header>
       <div className="hidden border-b border-[#e4e5e8] bg-[#f1f2f4] lg:block">
@@ -21,7 +44,7 @@ export const TopNavigation = () => {
                       ? "border-b-2 border-[#0a65cc] py-3.5 font-medium text-[#0a65cc]"
                       : "text-[#5e6670]"
                   }`}
-                  href="#"
+                  href={link === "Home" ? "/" : "#"}
                   key={link}
                 >
                   {link}
@@ -55,22 +78,15 @@ export const TopNavigation = () => {
         <Container>
           <div className="flex min-h-[90px] flex-wrap items-center justify-between gap-4 py-5">
             <div className="flex flex-wrap items-center gap-8">
-              <CareerLinkLogo />
+              <Link href="/">
+                <CareerLinkLogo />
+              </Link>
               <form
+                action="/"
+                method="GET"
                 className="hidden h-[50px] w-[420px] items-center gap-4 rounded-[5px] border border-[#e4e5e8] px-5 xl:flex"
                 role="search"
               >
-                {/* <span className="flex items-center gap-2 font-medium text-[#18191c]">
-                  <Image
-                    alt=""
-                    className="h-5 w-5 rounded-full object-cover"
-                    height={20}
-                    src="/home-assets/flag-india.png"
-                    width={20}
-                  />
-                  India
-                </span>
-                <span className="h-8 w-px bg-[#e4e5e8]" /> */}
                 <SearchIcon className="size-5 text-[#0a65cc]" />
                 <input
                   aria-label="Search jobs by title, keyword, or company"
@@ -83,18 +99,41 @@ export const TopNavigation = () => {
             </div>
 
             <div className="flex items-center gap-3">
-              <Link
-                className="cursor-pointer rounded-[3px] border border-[#cee0f5] px-6 py-3 font-semibold capitalize leading-6 text-[#0a65cc]"
-                href="/auth/login"
-              >
-                Sign in
-              </Link>
-              <button
-                className="hidden cursor-pointer rounded-[3px] bg-[#0a65cc] px-6 py-3 font-semibold capitalize leading-6 text-white sm:block"
-                type="button"
-              >
-                Post a Jobs
-              </button>
+              {user ? (
+                <>
+                  <Link
+                    className="cursor-pointer rounded-[3px] border border-[#cee0f5] px-6 py-3 font-semibold capitalize leading-6 text-[#0a65cc]"
+                    href={getDashboardLink()}
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={async () => {
+                      await signOut();
+                      router.push("/");
+                    }}
+                    className="cursor-pointer rounded-[3px] border border-red-200 px-6 py-3 font-semibold capitalize leading-6 text-red-600 hover:bg-red-50 transition-colors"
+                  >
+                    Log out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    className="cursor-pointer rounded-[3px] border border-[#cee0f5] px-6 py-3 font-semibold capitalize leading-6 text-[#0a65cc]"
+                    href="/auth/login"
+                  >
+                    Sign in
+                  </Link>
+                  <button
+                    onClick={handlePostJobClick}
+                    className="hidden cursor-pointer rounded-[3px] bg-[#0a65cc] px-6 py-3 font-semibold capitalize leading-6 text-white sm:block"
+                    type="button"
+                  >
+                    Post a Jobs
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </Container>

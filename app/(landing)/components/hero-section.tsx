@@ -1,12 +1,22 @@
 import type { ReactNode } from "react";
-
 import Image from "next/image";
-
 import { Container } from "./container";
-import { MapPinIcon, SearchIcon } from "./home-icons";
-import { stats } from "./landing-data";
+import { BriefcaseIcon, BuildingIcon, MapPinIcon, SearchIcon, UsersIcon } from "./home-icons";
 
-export const HeroSection = () => {
+export const HeroSection = ({
+  jobCount = 0,
+  companyCount = 0,
+}: {
+  jobCount?: number;
+  companyCount?: number;
+}) => {
+  const statsList = [
+    { label: "Live Job", value: jobCount.toLocaleString(), icon: BriefcaseIcon },
+    { label: "Companies", value: companyCount.toLocaleString(), icon: BuildingIcon },
+    { label: "Candidates", value: "2,354", icon: UsersIcon },
+    { label: "New Jobs", value: Math.min(jobCount, 15).toString(), icon: BriefcaseIcon },
+  ];
+
   return (
     <section className="bg-[#f1f2f4]/60 py-12 md:py-16 lg:py-24">
       <Container>
@@ -21,6 +31,8 @@ export const HeroSection = () => {
             </p>
 
             <form
+              action="/"
+              method="GET"
               className="mt-6 max-w-[780px] rounded-lg border border-[#e4e5e8] bg-white p-3 shadow-[0_12px_40px_rgba(0,44,109,0.04)] md:mt-8"
               role="search"
             >
@@ -39,7 +51,7 @@ export const HeroSection = () => {
                   placeholder="Your Location"
                 />
                 <button
-                  className="cursor-pointer w-full rounded bg-[#0a65cc] px-8 py-4 font-semibold capitalize leading-6 text-white"
+                  className="cursor-pointer w-full rounded bg-[#0a65cc] px-8 py-4 font-semibold capitalize leading-6 text-white hover:bg-[#095bb8] transition-colors"
                   type="submit"
                 >
                   Find Job
@@ -63,7 +75,7 @@ export const HeroSection = () => {
         </div>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 md:mt-12 lg:mt-16 xl:grid-cols-4">
-          {stats.map(({ icon: Icon, label, value }) => (
+          {statsList.map(({ icon: Icon, label, value }) => (
             <div
               className="flex items-center gap-4 rounded-lg bg-white p-4 shadow-sm md:gap-5 md:p-5"
               key={label}
